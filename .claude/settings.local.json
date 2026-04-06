@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"D:/Proyecto inmobiliaria seminara/webapp\" && npm install next@latest 2>&1)",
+      "Bash(cd \"D:/Proyecto inmobiliaria seminara/webapp\" && npm run dev 2>&1)",
+      "Bash(cd \"D:/Proyecto inmobiliaria seminara/webapp\" && node -e \"const next = require\\('next/package.json'\\); console.log\\(next.version\\)\")"
+    ]
+  }
+}
