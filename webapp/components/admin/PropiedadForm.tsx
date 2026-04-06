@@ -131,7 +131,7 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
               value={titulo}
               onChange={(e) => handleTituloChange(e.target.value)}
               error={errors.titulo}
-              placeholder="Casa con jardín en Palermo"
+              placeholder="Casa con jardín en Plottier"
             />
           </div>
           <div className="md:col-span-2">
@@ -140,7 +140,7 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               error={errors.slug}
-              hint="Se genera automáticamente. Ejemplo: casa-con-jardin-en-palermo"
+              hint="Se genera automáticamente. Ejemplo: casa-con-jardin-en-plottier"
             />
           </div>
           <Select
@@ -178,7 +178,7 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
           <Select
             label="Moneda"
             value={moneda}
-            onChange={(e) => setMoneda(e.target.value)}
+            onChange={(e) => setMoneda(e.target.value as "USD" | "ARS")}
             options={[
               { value: "USD", label: "USD" },
               { value: "ARS", label: "ARS" },
@@ -256,26 +256,26 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
               label="Dirección"
               value={direccion}
               onChange={(e) => setDireccion(e.target.value)}
-              placeholder="Av. Corrientes 1234"
+              placeholder="Av. Argentina 1234"
             />
           </div>
           <Input
             label="Barrio"
             value={barrio}
             onChange={(e) => setBarrio(e.target.value)}
-            placeholder="Palermo"
+            placeholder="Alta Barda"
           />
           <Input
             label="Ciudad"
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
-            placeholder="Buenos Aires"
+            placeholder="Neuquén"
           />
           <Input
             label="Provincia"
             value={provincia}
             onChange={(e) => setProvincia(e.target.value)}
-            placeholder="Buenos Aires"
+            placeholder="Neuquén"
           />
         </div>
       </section>

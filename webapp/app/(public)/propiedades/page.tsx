@@ -39,8 +39,8 @@ export default async function PropiedadesPage({ searchParams }: Props) {
     .order("created_at", { ascending: false })
     .range(from, to);
 
-  if (params.tipo) query = query.eq("tipo", params.tipo);
-  if (params.operacion) query = query.eq("operacion", params.operacion);
+  if (params.tipo) query = query.eq("tipo", params.tipo as "casa" | "departamento" | "terreno" | "local" | "oficina");
+  if (params.operacion) query = query.eq("operacion", params.operacion as "venta" | "alquiler" | "venta_alquiler");
   if (params.ciudad) query = query.ilike("ciudad", `%${params.ciudad}%`);
 
   const { data: propiedades, count } = await query;

@@ -31,8 +31,8 @@ export default async function LeadsPage({ searchParams }: Props) {
     .order("created_at", { ascending: false })
     .range(from, to);
 
-  if (params.estado) query = query.eq("estado", params.estado);
-  if (params.intencion) query = query.eq("intencion", params.intencion);
+  if (params.estado) query = query.eq("estado", params.estado as "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado");
+  if (params.intencion) query = query.eq("intencion", params.intencion as "comprar" | "vender" | "alquilar");
   if (params.q) {
     query = query.or(`nombre.ilike.%${params.q}%,email.ilike.%${params.q}%`);
   }

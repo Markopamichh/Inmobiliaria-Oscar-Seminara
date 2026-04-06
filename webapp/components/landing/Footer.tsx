@@ -13,8 +13,8 @@ export function Footer() {
               Seminara
             </p>
             <p className="text-sm leading-relaxed">
-              Inmobiliaria con más de 15 años de experiencia en el mercado
-              argentino.
+              Inmobiliaria con más de 15 años de experiencia en Neuquén y
+              la región patagónica.
             </p>
           </div>
 
@@ -60,13 +60,13 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+541112345678"
+                  href="tel:+542994521890"
                   className="hover:text-white transition-colors"
                 >
-                  +54 11 1234-5678
+                  +54 299 452-1890
                 </a>
               </li>
-              <li className="text-stone-500">Buenos Aires, Argentina</li>
+              <li className="text-stone-500">Neuquén, Argentina</li>
             </ul>
           </div>
         </div>

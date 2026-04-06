@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS propiedades (
   direccion          TEXT,
   barrio             TEXT,
   ciudad             TEXT,
-  provincia          TEXT,
+  provincia          TEXT,c
   latitud            DOUBLE PRECISION,
   longitud           DOUBLE PRECISION,
   imagenes           TEXT[] NOT NULL DEFAULT '{}',
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS leads (
   zona_interes       TEXT,
   mensaje            TEXT,
   estado             TEXT NOT NULL DEFAULT 'nuevo'
-                       CHECK (estado IN ('nuevo','contactado','calificado','descartado','cerrado')),
+                      CHECK (estado IN ('nuevo','contactado','calificado','descartado','cerrado')),
   propiedad_id       UUID REFERENCES propiedades(id) ON DELETE SET NULL,
   notas_internas     TEXT,
   ultima_interaccion TIMESTAMPTZ

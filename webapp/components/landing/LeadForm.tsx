@@ -262,7 +262,7 @@ export function LeadForm() {
                 label="Zona o barrio de interés *"
                 value={zona}
                 onChange={(e) => setZona(e.target.value)}
-                placeholder="Ej: Palermo, Belgrano, GBA Norte…"
+                placeholder="Ej: Neuquén capital, Cipolletti, Plottier…"
                 error={errors.zona_interes}
               />
               <Select
@@ -302,7 +302,7 @@ export function LeadForm() {
                 label="Zona o barrio de interés *"
                 value={zona}
                 onChange={(e) => setZona(e.target.value)}
-                placeholder="Ej: Palermo, Belgrano, GBA Norte…"
+                placeholder="Ej: Neuquén capital, Cipolletti, Plottier…"
                 error={errors.zona_interes}
               />
               <Select
@@ -334,7 +334,7 @@ export function LeadForm() {
                 label="Dirección o barrio *"
                 value={ubicacionVenta}
                 onChange={(e) => setUbicacionVenta(e.target.value)}
-                placeholder="Ej: Av. Corrientes 1234, Palermo…"
+                placeholder="Ej: Av. Argentina 1234, Neuquén capital…"
                 error={errors.zona_interes}
               />
               <Select
@@ -384,7 +384,7 @@ export function LeadForm() {
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
             error={errors.telefono}
-            placeholder="+54 11 1234-5678"
+            placeholder="+54 299 154-000000"
             autoComplete="tel"
           />
           <div>

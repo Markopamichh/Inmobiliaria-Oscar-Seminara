@@ -258,7 +258,7 @@ export function LeadFormPropiedad({ propiedadTitulo, operacion, ubicacion }: Pro
         value={telefono}
         onChange={(e) => setTelefono(e.target.value)}
         error={errors.telefono}
-        placeholder="+54 11 1234-5678"
+        placeholder="+54 299 154-000000"
         autoComplete="tel"
       />
       <div>
