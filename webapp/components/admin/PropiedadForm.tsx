@@ -51,6 +51,8 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
   const [caracteristicas, setCaracteristicas] = useState(
     propiedad?.caracteristicas?.join(", ") ?? ""
   );
+  const [grupoFamiliar, setGrupoFamiliar] = useState(propiedad?.grupo_familiar ?? "");
+  const [estadoPropiedad, setEstadoPropiedad] = useState(propiedad?.estado ?? "disponible");
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [saving, setSaving] = useState(false);
@@ -89,6 +91,8 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
       caracteristicas: caracteristicas
         ? caracteristicas.split(",").map((c) => c.trim()).filter(Boolean)
         : [],
+      grupo_familiar: grupoFamiliar || null,
+      estado: estadoPropiedad as "disponible" | "reservada" | "vendida" | "alquilada",
     };
 
     const result = PropiedadSchema.safeParse(raw);
@@ -245,6 +249,15 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
             hint="Ingresá cada característica separada por coma"
           />
         </div>
+        <div className="mt-4">
+          <Input
+            label="Grupo familiar sugerido"
+            value={grupoFamiliar}
+            onChange={(e) => setGrupoFamiliar(e.target.value)}
+            placeholder="Ideal para familia de 3-4 personas"
+            hint="Ayuda al comprador a identificarse con la propiedad"
+          />
+        </div>
       </section>
 
       {/* Ubicación */}
@@ -289,25 +302,38 @@ export function PropiedadForm({ propiedad }: PropiedadFormProps) {
       {/* Opciones de publicación */}
       <section className="bg-white rounded-xl border border-stone-200 p-6">
         <h2 className="font-semibold text-stone-900 mb-4">Publicación</h2>
-        <div className="flex flex-col gap-3">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={publicada}
-              onChange={(e) => setPublicada(e.target.checked)}
-              className="w-4 h-4 rounded border-stone-300 text-accent focus:ring-accent"
-            />
-            <span className="text-sm text-stone-700">Publicar en el sitio web</span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={destacada}
-              onChange={(e) => setDestacada(e.target.checked)}
-              className="w-4 h-4 rounded border-stone-300 text-accent focus:ring-accent"
-            />
-            <span className="text-sm text-stone-700">Marcar como destacada</span>
-          </label>
+        <div className="flex flex-col gap-4">
+          <Select
+            label="Estado de la propiedad"
+            value={estadoPropiedad}
+            onChange={(e) => setEstadoPropiedad(e.target.value as "disponible" | "reservada" | "vendida" | "alquilada")}
+            options={[
+              { value: "disponible", label: "Disponible" },
+              { value: "reservada", label: "Reservada" },
+              { value: "vendida", label: "Vendida" },
+              { value: "alquilada", label: "Alquilada" },
+            ]}
+          />
+          <div className="flex flex-col gap-3">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={publicada}
+                onChange={(e) => setPublicada(e.target.checked)}
+                className="w-4 h-4 rounded border-stone-300 text-accent focus:ring-accent"
+              />
+              <span className="text-sm text-stone-700">Publicar en el sitio web</span>
+            </label>
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={destacada}
+                onChange={(e) => setDestacada(e.target.checked)}
+                className="w-4 h-4 rounded border-stone-300 text-accent focus:ring-accent"
+              />
+              <span className="text-sm text-stone-700">Marcar como destacada</span>
+            </label>
+          </div>
         </div>
       </section>
 

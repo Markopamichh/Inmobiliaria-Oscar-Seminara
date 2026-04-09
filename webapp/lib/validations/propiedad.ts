@@ -27,6 +27,8 @@ export const PropiedadSchema = z.object({
   destacada: z.boolean().default(false),
   publicada: z.boolean().default(false),
   caracteristicas: z.array(z.string().max(100)).default([]),
+  grupo_familiar: z.string().max(200).optional().nullable(),
+  estado: z.enum(["disponible", "reservada", "vendida", "alquilada"]).default("disponible"),
 });
 
 export type PropiedadFormValues = z.infer<typeof PropiedadSchema>;

@@ -34,6 +34,8 @@ export interface Propiedad {
   destacada: boolean;
   publicada: boolean;
   caracteristicas: string[];
+  grupo_familiar: string | null;
+  estado: "disponible" | "reservada" | "vendida" | "alquilada" | null;
 }
 
 export type PropiedadInsert = Omit<Propiedad, "id" | "created_at"> & {
@@ -62,4 +64,5 @@ export interface PropiedadCard {
   ciudad: string | null;
   imagenes: string[];
   destacada: boolean;
+  estado: "disponible" | "reservada" | "vendida" | "alquilada" | null;
 }

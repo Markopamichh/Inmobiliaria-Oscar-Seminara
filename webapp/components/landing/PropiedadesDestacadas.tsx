@@ -7,7 +7,7 @@ export async function PropiedadesDestacadas() {
   const { data: propiedades } = await supabase
     .from("propiedades")
     .select(
-      "id,titulo,slug,tipo,operacion,precio,moneda,superficie_cubierta,ambientes,dormitorios,barrio,ciudad,imagenes,destacada"
+      "id,titulo,slug,tipo,operacion,precio,moneda,superficie_cubierta,ambientes,dormitorios,barrio,ciudad,imagenes,destacada,estado"
     )
     .eq("publicada", true)
     .eq("destacada", true)

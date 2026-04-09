@@ -61,8 +61,21 @@ export function PropiedadCard({ propiedad }: PropiedadCardProps) {
           </div>
         )}
 
+        {/* Overlay de estado cuando no está disponible */}
+        {propiedad.estado && propiedad.estado !== "disponible" && (
+          <div className="absolute inset-0 bg-stone-900/65 flex items-center justify-center z-10">
+            <span className="bg-white text-stone-900 text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wide">
+              {propiedad.estado === "vendida"
+                ? "Vendida"
+                : propiedad.estado === "alquilada"
+                ? "Alquilada"
+                : "Reservada"}
+            </span>
+          </div>
+        )}
+
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex gap-1.5">
+        <div className="absolute top-3 left-3 flex gap-1.5 z-20">
           {propiedad.tipo && (
             <span className="bg-white/90 text-stone-800 text-xs font-medium px-2.5 py-1 rounded-full">
               {tipoLabel[propiedad.tipo] ?? propiedad.tipo}

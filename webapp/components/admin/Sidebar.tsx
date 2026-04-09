@@ -49,6 +49,17 @@ const navItems: NavItem[] = [
       </svg>
     ),
   },
+  {
+    href: "/admin/leads-tibios",
+    label: "Leads Tibios",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M2 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M12 4c.5-1 1.5-1.5 2-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
 ];
 
 export function Sidebar({ isOpen = false, onClose }: SidebarProps) {

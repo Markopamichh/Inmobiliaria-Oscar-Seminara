@@ -31,7 +31,7 @@ export default async function PropiedadesPage({ searchParams }: Props) {
   let query = supabase
     .from("propiedades")
     .select(
-      "id,titulo,slug,tipo,operacion,precio,moneda,superficie_cubierta,ambientes,dormitorios,barrio,ciudad,imagenes,destacada",
+      "id,titulo,slug,tipo,operacion,precio,moneda,superficie_cubierta,ambientes,dormitorios,barrio,ciudad,imagenes,destacada,estado",
       { count: "exact" }
     )
     .eq("publicada", true)

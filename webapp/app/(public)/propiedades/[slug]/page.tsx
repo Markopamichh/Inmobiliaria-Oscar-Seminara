@@ -2,29 +2,13 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PropiedadGaleria } from "@/components/landing/PropiedadGaleria";
-import { LeadFormPropiedad } from "@/components/landing/LeadFormPropiedad";
+import { WizardCalificacion } from "@/components/landing/WizardCalificacion";
 import { Footer } from "@/components/landing/Footer";
 import { formatPrice } from "@/lib/utils";
 import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("propiedades")
-    .select("titulo,descripcion")
-    .eq("slug", slug)
-    .eq("publicada", true)
-    .single();
-  if (!data) return { title: "Propiedad no encontrada" };
-  return {
-    title: data.titulo,
-    description: data.descripcion ?? undefined,
-  };
 }
 
 const tipoLabel: Record<string, string> = {
@@ -40,6 +24,34 @@ const operacionLabel: Record<string, string> = {
   alquiler: "En alquiler",
   venta_alquiler: "Venta / Alquiler",
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("propiedades")
+    .select("titulo,descripcion,precio,moneda,barrio,tipo,imagenes")
+    .eq("slug", slug)
+    .eq("publicada", true)
+    .single();
+  if (!data) return { title: "Propiedad no encontrada" };
+
+  const tipoStr = data.tipo ? (tipoLabel[data.tipo] ?? data.tipo) : "";
+  const zonaStr = data.barrio ?? "";
+  const precioStr = data.precio ? `USD ${data.precio.toLocaleString("es-AR")}` : "";
+  const parts = [tipoStr, zonaStr, precioStr].filter(Boolean);
+  const descFallback = parts.join(" · ") + " — Seminara Inmobiliaria";
+
+  return {
+    title: data.titulo,
+    description: data.descripcion ?? descFallback,
+    openGraph: {
+      title: `${data.titulo} — Seminara Inmobiliaria`,
+      description: data.descripcion ?? descFallback,
+      images: data.imagenes?.[0] ? [{ url: data.imagenes[0] }] : [],
+    },
+  };
+}
 
 export default async function PropiedadDetallePage({ params }: Props) {
   const { slug } = await params;
@@ -95,6 +107,15 @@ export default async function PropiedadDetallePage({ params }: Props) {
                 {propiedad.operacion && (
                   <span className="bg-accent text-white text-xs font-medium px-2.5 py-1 rounded-full">
                     {operacionLabel[propiedad.operacion]}
+                  </span>
+                )}
+                {propiedad.estado && propiedad.estado !== "disponible" && (
+                  <span className="bg-stone-900 text-white text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
+                    {propiedad.estado === "vendida"
+                      ? "Vendida"
+                      : propiedad.estado === "alquilada"
+                      ? "Alquilada"
+                      : "Reservada"}
                   </span>
                 )}
               </div>
@@ -165,6 +186,16 @@ export default async function PropiedadDetallePage({ params }: Props) {
                     </p>
                   </div>
                 )}
+                {propiedad.grupo_familiar && (
+                  <div className="col-span-2 md:col-span-3">
+                    <p className="text-xs text-stone-400 uppercase tracking-wide">
+                      Grupo familiar sugerido
+                    </p>
+                    <p className="text-stone-900 font-medium mt-1">
+                      {propiedad.grupo_familiar}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -201,19 +232,20 @@ export default async function PropiedadDetallePage({ params }: Props) {
             )}
           </div>
 
-          {/* Right — formulario de contacto */}
+          {/* Right — wizard de contacto */}
           <div className="lg:col-span-1">
-            <div className="sticky top-6 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm">
-              <h2 className="font-semibold text-stone-900 mb-1">
+            <div className="sticky top-6">
+              <h2 className="font-semibold text-stone-900 mb-1 px-1">
                 ¿Te interesa esta propiedad?
               </h2>
-              <p className="text-sm text-stone-500 mb-5">
-                Completá tus datos y te contactamos.
+              <p className="text-sm text-stone-500 mb-4 px-1">
+                Respondé unas preguntas y Oscar te escribe por WhatsApp.
               </p>
-              <LeadFormPropiedad
+              <WizardCalificacion
+                propiedadId={propiedad.id}
                 propiedadTitulo={propiedad.titulo}
-                operacion={propiedad.operacion ?? "venta_alquiler"}
-                ubicacion={ubicacion}
+                disponible={!propiedad.estado || propiedad.estado === "disponible"}
+                {...(propiedad.operacion ? { operacion: propiedad.operacion } : {})}
               />
             </div>
           </div>

@@ -24,46 +24,70 @@ export interface Database {
           id: string;
           created_at: string;
           nombre: string;
+          apellido: string | null;
           email: string;
           telefono: string | null;
           intencion: "comprar" | "vender" | "alquilar" | null;
           presupuesto_rango: string | null;
           zona_interes: string | null;
           mensaje: string | null;
-          estado: "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado";
+          estado: "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado" | "esperando_propiedad";
           propiedad_id: string | null;
           notas_internas: string | null;
           ultima_interaccion: string | null;
+          temperatura: "hot" | "warm" | "cold" | null;
+          financiamiento: "disponible" | "parte_propia" | "completo" | null;
+          urgencia: "ahora" | "3_meses" | "6_meses" | null;
+          tipo_propiedad_buscado: string | null;
+          zona_preferida: string | null;
+          ambientes_minimos: number | null;
+          familia: string | null;
         };
         Insert: {
           id?: string | undefined;
           created_at?: string | undefined;
           nombre: string;
+          apellido?: string | null | undefined;
           email: string;
           telefono?: string | null | undefined;
           intencion?: "comprar" | "vender" | "alquilar" | null | undefined;
           presupuesto_rango?: string | null | undefined;
           zona_interes?: string | null | undefined;
           mensaje?: string | null | undefined;
-          estado?: "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado" | undefined;
+          estado?: "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado" | "esperando_propiedad" | undefined;
           propiedad_id?: string | null | undefined;
           notas_internas?: string | null | undefined;
           ultima_interaccion?: string | null | undefined;
+          temperatura?: "hot" | "warm" | "cold" | null | undefined;
+          financiamiento?: "disponible" | "parte_propia" | "completo" | null | undefined;
+          urgencia?: "ahora" | "3_meses" | "6_meses" | null | undefined;
+          tipo_propiedad_buscado?: string | null | undefined;
+          zona_preferida?: string | null | undefined;
+          ambientes_minimos?: number | null | undefined;
+          familia?: string | null | undefined;
         };
         Update: {
           id?: string | undefined;
           created_at?: string | undefined;
           nombre?: string | undefined;
+          apellido?: string | null | undefined;
           email?: string | undefined;
           telefono?: string | null | undefined;
           intencion?: "comprar" | "vender" | "alquilar" | null | undefined;
           presupuesto_rango?: string | null | undefined;
           zona_interes?: string | null | undefined;
           mensaje?: string | null | undefined;
-          estado?: "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado" | undefined;
+          estado?: "nuevo" | "contactado" | "calificado" | "descartado" | "cerrado" | "esperando_propiedad" | undefined;
           propiedad_id?: string | null | undefined;
           notas_internas?: string | null | undefined;
           ultima_interaccion?: string | null | undefined;
+          temperatura?: "hot" | "warm" | "cold" | null | undefined;
+          financiamiento?: "disponible" | "parte_propia" | "completo" | null | undefined;
+          urgencia?: "ahora" | "3_meses" | "6_meses" | null | undefined;
+          tipo_propiedad_buscado?: string | null | undefined;
+          zona_preferida?: string | null | undefined;
+          ambientes_minimos?: number | null | undefined;
+          familia?: string | null | undefined;
         };
         Relationships: [
           {
@@ -101,6 +125,8 @@ export interface Database {
           destacada: boolean;
           publicada: boolean;
           caracteristicas: string[];
+          grupo_familiar: string | null;
+          estado: "disponible" | "reservada" | "vendida" | "alquilada" | null;
         };
         Insert: {
           id?: string | undefined;
@@ -127,6 +153,8 @@ export interface Database {
           destacada?: boolean | undefined;
           publicada?: boolean | undefined;
           caracteristicas?: string[] | undefined;
+          grupo_familiar?: string | null | undefined;
+          estado?: "disponible" | "reservada" | "vendida" | "alquilada" | null | undefined;
         };
         Update: {
           id?: string | undefined;
@@ -153,6 +181,8 @@ export interface Database {
           destacada?: boolean | undefined;
           publicada?: boolean | undefined;
           caracteristicas?: string[] | undefined;
+          grupo_familiar?: string | null | undefined;
+          estado?: "disponible" | "reservada" | "vendida" | "alquilada" | null | undefined;
         };
         Relationships: [];
       };

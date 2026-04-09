@@ -23,11 +23,26 @@ export type LeadFormValues = z.infer<typeof LeadFormSchema>;
 
 export const LeadUpdateSchema = z.object({
   estado: z
-    .enum(["nuevo", "contactado", "calificado", "descartado", "cerrado"])
+    .enum(["nuevo", "contactado", "calificado", "descartado", "cerrado", "esperando_propiedad"])
     .optional(),
   notas_internas: z.string().max(2000).optional(),
   ultima_interaccion: z.string().datetime().optional(),
 });
+
+// Schema para el wizard de calificación (POST /api/leads)
+export const WizardLeadSchema = z.object({
+  nombre: z.string().min(2).max(100),
+  apellido: z.string().min(2).max(100),
+  telefono: z.string().min(6).max(30),
+  temperatura: z.enum(["hot", "warm", "cold"]),
+  intencion: z.enum(["comprar", "alquilar"]).optional().nullable(),
+  presupuesto_rango: z.string().optional().nullable(),
+  financiamiento: z.enum(["disponible", "parte_propia", "completo"]).optional().nullable(),
+  urgencia: z.enum(["ahora", "3_meses", "6_meses"]).optional().nullable(),
+  propiedad_id: z.string().uuid().optional().nullable(),
+});
+
+export type WizardLeadValues = z.infer<typeof WizardLeadSchema>;
 
 export type LeadUpdateValues = z.infer<typeof LeadUpdateSchema>;
 
